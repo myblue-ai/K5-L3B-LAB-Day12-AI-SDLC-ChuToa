@@ -53,6 +53,7 @@ Dòng event: `{"type":"event","tick":k+1,"phase":...,"name":...,"data":{...}}`; 
 | `cook_started` | `{stove_id, dish_id, customer_id}` | interact bếp rảnh khi có đơn chưa nấu |
 | `dish_ready` | `{stove_id, dish_id}` | bếp nấu xong |
 | `dish_picked` | `{stove_id, dish_id}` | interact bếp `ready`, tay trống |
+| `dish_burnt` | `{stove_id, dish_id}` | chỉ khi `burn_s` khác `null`: món chín nằm trên bếp đủ `burn_s` giây; bếp về `idle` (ADR-0001, Phase 3) |
 | `served` | `{customer_id, table_id, dish_id}` | interact bàn, món trên tay đúng món khách gọi |
 | `paid` | `{customer_id, price, tip, money, reputation}` | khách ăn xong |
 | `quan_end` | `{reason: time, money, earned, shift_earned, reputation}` | hết ca |

@@ -1,8 +1,7 @@
 """Nạp và kiểm scenario (Contract D). Trả về dict của đúng khối theo mode.
 
 KHUNG: kiểm cú pháp, id trùng, bộ đếm âm, khoang vượt sức chứa, trường lạ.
-TODO(nhóm): bổ sung kiểm mâu thuẫn mức luật mà nhóm cần (khách giữ chỗ quá kho, đơn assigned
-phải có đúng một món, khách eating thiếu giá/tip...) — xem PRD-0 mục D và 'Mâu thuẫn -> mã 2'.
+Nhóm ChuToa đã thêm `_validate_quan_rules` (khách/bếp/tay/uy tín); khách giữ chỗ quá kho kiểm trong QuanSim.
 """
 
 import json
@@ -161,3 +160,70 @@ def _validate_quan(b, tuning):
             raise BadInput(f"customers.{c['id']}: table_id phải là bàn có thật")
     if len(table_ids) != len(set(table_ids)):
         raise BadInput("hai khách cùng bàn")
+    _validate_quan_rules(b, tuning)
+
+
+CUSTOMER_KEYS = {"id", "table_id", "dish_id", "state", "patience_ticks_left", "eat_ticks_left", "price", "tip",
+                 "reserved"}
+STOVE_STATES = ("idle", "cooking", "ready")
+
+
+def _validate_quan_rules(b, tuning):
+    """Mâu thuẫn mức luật của nhóm (docs/clarify.md #7–#11). Giữ chỗ vượt kho được kiểm trong QuanSim
+    vì kho có thể đến từ --inventory."""
+    q, menu = tuning["quan"], tuning["menu"]
+    pmax = int(round(q["patience_s"] * 60))
+    if "random_customers" in b and not isinstance(b["random_customers"], bool):
+        raise BadInput("random_customers phải là boolean")
+    if "reputation" in b:
+        r = b["reputation"]
+        if not _num(r) or not (q["reputation_min"] <= r <= q["reputation_max"]):
+            raise BadInput(f"reputation phải trong [{q['reputation_min']}, {q['reputation_max']}]")
+    if b.get("hand") is not None and b["hand"] not in menu:
+        raise BadInput("hand phải là null hoặc id món trong menu")
+    for c in b.get("customers", []):
+        name = f"customers.{c['id']}"
+        extra = set(c) - CUSTOMER_KEYS
+        if extra:
+            raise BadInput(f"{name}: trường lạ {sorted(extra)}")
+        if c.get("dish_id") not in menu:
+            raise BadInput(f"{name}: dish_id phải là món trong menu")
+        state = c.get("state", "waiting")
+        if state not in ("waiting", "eating"):
+            raise BadInput(f"{name}: state phải là waiting hoặc eating")
+        if "patience_ticks_left" in c:
+            v = c["patience_ticks_left"]
+            if isinstance(v, bool) or not isinstance(v, int) or not (1 <= v <= pmax):
+                raise BadInput(f"{name}: patience_ticks_left phải là số nguyên trong [1, {pmax}]")
+        if state == "eating":
+            for k in ("eat_ticks_left", "price", "tip"):
+                if k not in c:
+                    raise BadInput(f"{name}: khách đang ăn phải có {k}")
+            if c["eat_ticks_left"] < 1:
+                raise BadInput(f"{name}: eat_ticks_left phải >= 1")
+            if c.get("reserved"):
+                raise BadInput(f"{name}: khách đang ăn không giữ chỗ nguyên liệu")
+        else:
+            for k in ("eat_ticks_left", "price", "tip"):
+                if k in c:
+                    raise BadInput(f"{name}: khách đang đợi không có {k}")
+        for k in ("eat_ticks_left", "price", "tip"):
+            if k in c:
+                _nonneg_int(f"{name}.{k}", c[k])
+        if "reserved" in c:
+            validate_items(c["reserved"])
+    for s in b.get("stoves", []):
+        name = f"stoves.{s['id']}"
+        state = s.get("state", "idle")
+        if state not in STOVE_STATES:
+            raise BadInput(f"{name}: state phải là một trong {STOVE_STATES}")
+        dish = s.get("dish")
+        if state == "idle" and dish is not None:
+            raise BadInput(f"{name}: bếp rảnh không có món")
+        if state != "idle" and dish not in menu:
+            raise BadInput(f"{name}: bếp {state} phải có dish trong menu")
+        for k in ("cook_ticks_left", "ready_ticks"):
+            if k in s:
+                _nonneg_int(f"{name}.{k}", s[k])
+        if state == "cooking" and s.get("cook_ticks_left", 0) < 1:
+            raise BadInput(f"{name}: bếp đang nấu phải có cook_ticks_left >= 1")

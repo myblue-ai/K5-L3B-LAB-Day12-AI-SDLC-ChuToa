@@ -1,0 +1,11 @@
+{"frames": [
+  {"tick": 0, "move": [0.933, 0.359]},
+  {"tick": 205, "move": [0, 0]},
+  {"tick": 206, "catch": true},
+  {"tick": 207, "move": [-0.287, -0.958], "catch": false},
+  {"tick": 300, "move": [0, 0]},
+  {"tick": 301, "interact": true},
+  {"tick": 302, "move": [-1, 0], "interact": false},
+  {"tick": 500, "move": [0, 0]},
+  {"tick": 501, "interact": true}
+]}

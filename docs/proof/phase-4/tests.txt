@@ -1,0 +1,126 @@
+# 2026-11-21 23:18
+$ PYTHONPATH=tests;. python3 -m unittest discover -s tests -v
+# exit 0
+
+test_contract_accepts_null_or_range (test_burn_cr.Burn.test_contract_accepts_null_or_range) ... ok
+test_null_never_burns (test_burn_cr.Burn.test_null_never_burns) ... ok
+test_ready_dish_burns_after_burn_s (test_burn_cr.Burn.test_ready_dish_burns_after_burn_s) ... ok
+test_recook_after_burn_uses_free_stock_only (test_burn_cr.Burn.test_recook_after_burn_uses_free_stock_only)
+C1 đã nấu (reserved rỗng) nhưng món cháy; còn 1 cá lóc nhưng C2 đang giữ chỗ -> không được nấu lại cho C1. ... ok
+test_bad_recipe_and_score_rejected (test_contract_rules.TuningRanges.test_bad_recipe_and_score_rejected) ... ok
+test_bad_values_rejected (test_contract_rules.TuningRanges.test_bad_values_rejected) ... ok
+test_shipped_contract_is_valid (test_contract_rules.TuningRanges.test_shipped_contract_is_valid) ... ok
+test_catch_ignored_at_surface (test_gather_rules.Catch.test_catch_ignored_at_surface) ... ok
+test_catch_school_underwater (test_gather_rules.Catch.test_catch_school_underwater) ... ok
+test_cooldown_blocks_second_catch (test_gather_rules.Catch.test_cooldown_blocks_second_catch) ... ok
+test_hold_full_keeps_school (test_gather_rules.Catch.test_hold_full_keeps_school) ... ok
+test_harvest_nearest_ready_node_at_surface (test_gather_rules.Harvest.test_harvest_nearest_ready_node_at_surface) ... ok
+test_hold_full_on_harvest (test_gather_rules.Harvest.test_hold_full_on_harvest) ... ok
+test_no_harvest_underwater (test_gather_rules.Harvest.test_no_harvest_underwater) ... ok
+test_node_regrown_event (test_gather_rules.Harvest.test_node_regrown_event) ... ok
+test_tie_breaks_by_smaller_id (test_gather_rules.Harvest.test_tie_breaks_by_smaller_id) ... ok
+test_dive_and_surface_events (test_gather_rules.Oxygen.test_dive_and_surface_events) ... ok
+test_faint_loses_hold_and_writes_empty_inventory (test_gather_rules.Oxygen.test_faint_loses_hold_and_writes_empty_inventory) ... ok
+test_oxygen_drains_underwater_and_refills_at_surface (test_gather_rules.Oxygen.test_oxygen_drains_underwater_and_refills_at_surface) ... ok
+test_oxygen_empty_then_choke (test_gather_rules.Oxygen.test_oxygen_empty_then_choke) ... ok
+test_surface_resets_choke_counter (test_gather_rules.Oxygen.test_surface_resets_choke_counter) ... ok
+test_full_morning_to_inventory (test_gather_rules.Run.test_full_morning_to_inventory)
+Lặn bắt F1, nổi lên hái N1, bơi về bến cập bến: kho có đúng những gì đã nhặt. ... ok
+test_morning_inventory_feeds_evening_service (test_integration_chain.Chain.test_morning_inventory_feeds_evening_service) ... ok
+test_state_input_and_clean_stop (test_live.LiveServerTest.test_state_input_and_clean_stop) ... ok
+test_quan_window_reads_inventory_and_gets_customer (test_live_quan.LiveQuan.test_quan_window_reads_inventory_and_gets_customer) ... ok
+test_bad_frames_raise (test_python_starter_units.Units.test_bad_frames_raise) ... ok
+test_catch_is_a_v10_button_and_attack_is_not (test_python_starter_units.Units.test_catch_is_a_v10_button_and_attack_is_not) ... ok
+test_id_allocator_continues_after_max (test_python_starter_units.Units.test_id_allocator_continues_after_max) ... ok
+test_id_sorting (test_python_starter_units.Units.test_id_sorting) ... ok
+test_input_edges_and_inherit (test_python_starter_units.Units.test_input_edges_and_inherit) ... ok
+test_live_inputs_keep_fast_tap_edge (test_python_starter_units.Units.test_live_inputs_keep_fast_tap_edge) ... ok
+test_session_steps_gather_and_dock (test_python_starter_units.Units.test_session_steps_gather_and_dock) ... ok
+test_customer_leaves_and_reputation_drops (test_quan_rules.Customers.test_customer_leaves_and_reputation_drops) ... ok
+test_first_customer_on_schedule_reserves_stock (test_quan_rules.Customers.test_first_customer_on_schedule_reserves_stock) ... ok
+test_full_restaurant_skips_turn (test_quan_rules.Customers.test_full_restaurant_skips_turn) ... ok
+test_new_ids_continue_after_scenario_ids (test_quan_rules.Customers.test_new_ids_continue_after_scenario_ids) ... ok
+test_no_dish_when_stock_cannot_cook_anything (test_quan_rules.Customers.test_no_dish_when_stock_cannot_cook_anything) ... ok
+test_random_customers_deterministic (test_quan_rules.Customers.test_random_customers_deterministic) ... ok
+test_reputation_clamped_at_min (test_quan_rules.Customers.test_reputation_clamped_at_min) ... ok
+test_cook_then_ready_then_pick (test_quan_rules.Kitchen.test_cook_then_ready_then_pick) ... ok
+test_idle_stove_without_orders_does_nothing (test_quan_rules.Kitchen.test_idle_stove_without_orders_does_nothing) ... ok
+test_stove_wins_tie_over_table (test_quan_rules.Kitchen.test_stove_wins_tie_over_table) ... ok
+test_conflicts_exit_2 (test_quan_rules.ScenarioConflicts.test_conflicts_exit_2) ... ok
+test_eating_customer_from_scenario_pays (test_quan_rules.ScenarioConflicts.test_eating_customer_from_scenario_pays) ... ok
+test_served_fast_pays_price_and_tip (test_quan_rules.Service.test_served_fast_pays_price_and_tip) ... ok
+test_served_late_pays_no_tip (test_quan_rules.Service.test_served_late_pays_no_tip) ... ok
+test_shift_ends_with_quan_end (test_quan_rules.Service.test_shift_ends_with_quan_end) ... ok
+test_wrong_dish_is_not_served (test_quan_rules.Service.test_wrong_dish_is_not_served) ... ok
+test_con_01_ticks_zero_and_end_line (test_smoke_p1.Contract.test_con_01_ticks_zero_and_end_line) ... ok
+test_con_02_deterministic_bytes (test_smoke_p1.Contract.test_con_02_deterministic_bytes) ... ok
+test_con_03_bad_input_exit_2 (test_smoke_p1.Contract.test_con_03_bad_input_exit_2) ... Exception in thread Thread-107 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599, in _readerthread
+    buffer.append(fh.read())
+                  ^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 35: character maps to <undefined>
+Exception in thread Thread-109 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599, in _readerthread
+    buffer.append(fh.read())
+                  ^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 35: character maps to <undefined>
+ok
+test_con_03_old_and_future_modes_rejected (test_smoke_p1.Contract.test_con_03_old_and_future_modes_rejected) ... ok
+test_gather_snapshot_has_gather_fields (test_smoke_p1.Contract.test_gather_snapshot_has_gather_fields) ... ok
+test_scenario_out_of_domain_exit_2 (test_smoke_p1.Contract.test_scenario_out_of_domain_exit_2) ... Exception in thread Thread-129 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599, in _readerthread
+    buffer.append(fh.read())
+                  ^^^^^^^^^
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 23: character maps to <undefined>
+ok
+test_inv_01_gather_writes_inventory_quan_reads_it (test_smoke_p1.Integration.test_inv_01_gather_writes_inventory_quan_reads_it)
+Ví dụ smoke test trong PRD-0 mục G: cập bến ở tick 0, quán đọc kho đúng nội dung. ... ok
+test_inv_01_not_written_when_tick_limit_first (test_smoke_p1.Integration.test_inv_01_not_written_when_tick_limit_first) ... ok
+test_inv_bad_schema_exit_2 (test_smoke_p1.Integration.test_inv_bad_schema_exit_2) ... ok
+test_inventory_and_scenario_stock_conflict (test_smoke_p1.Integration.test_inventory_and_scenario_stock_conflict) ... ok
+test_inventory_flags_mode_mismatch_exit_2 (test_smoke_p1.Integration.test_inventory_flags_mode_mismatch_exit_2) ... ok
+test_move_01_swim_speed_after_ramp (test_smoke_p1.Movement.test_move_01_swim_speed_after_ramp)
+Bỏ 6 tick tăng tốc rồi đo 60 tick: quãng ≈ swim_speed × 1 s (±0.1). Ngang, xuống, chéo (không nhanh hơn). ... ok
+test_move_02_heading_positive_is_down (test_smoke_p1.Movement.test_move_02_heading_positive_is_down) ... ok
+test_move_03_edge_clamp (test_smoke_p1.Movement.test_move_03_edge_clamp)
+Chặn từng mép của vùng nước, kể cả d không âm (không bay lên khỏi mặt nước) và đáy d = 30. ... ok
+test_move_mep_vel_ve_0 (test_smoke_p1.Movement.test_move_mep_vel_ve_0) ... ok
+test_move_ramp_doi_huong_trong_tran (test_smoke_p1.Movement.test_move_ramp_doi_huong_trong_tran)
+Đảo từ +speed sang -speed: vận tốc chạm mục tiêu sau tối đa ramp_max_ticks tick kể từ lúc đổi input. ... ok
+test_time_ends_gather_and_keeps_hold (test_smoke_p1.Movement.test_time_ends_gather_and_keeps_hold) ... ok
+test_khoi_sai_mode_exit_2 (test_smoke_p1.ScenarioModes.test_khoi_sai_mode_exit_2) ... ok
+test_quan_fixture_khong_hop_le_exit_2 (test_smoke_p1.ScenarioModes.test_quan_fixture_khong_hop_le_exit_2) ... ok
+test_quan_player_vel_hop_le (test_smoke_p1.ScenarioModes.test_quan_player_vel_hop_le) ... ok
+test_good (test_team_check.TeamCheck.test_good) ... ok
+test_template_is_rejected (test_team_check.TeamCheck.test_template_is_rejected) ... ok
+test_too_few_members (test_team_check.TeamCheck.test_too_few_members) ... ok
+test_wrong_size_duplicate_and_outsider (test_team_check.TeamCheck.test_wrong_size_duplicate_and_outsider) ... ok
+
+----------------------------------------------------------------------
+Ran 72 tests in 9.736s
+
+OK

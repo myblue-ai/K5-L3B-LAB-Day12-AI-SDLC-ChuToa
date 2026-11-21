@@ -7,6 +7,8 @@
 - Headless: `python3 -m chonoi.headless --mode gather|quan --seed 1 --ticks 600 --out out.jsonl`
 - Chơi thử trên trình duyệt: `python3 -m chonoi.live --mode gather|quan` (mở địa chỉ in ra; WASD, E, Space, R)
 - Bằng chứng một phase: `python3 tools/proof.py <n>` → `docs/proof/phase-<n>/` (xem skill `chonoi-proof`)
+- Bench một buổi đầy đủ: `python3 tools/bench.py` → `docs/proof/phase-4/bench.txt`
+- Thay đổi luật đã chốt: viết ADR trong `docs/adr/` + bảng tác động **trước** khi sửa code (bài học Phase 3); tính năng mới mặc định tắt để output cũ giữ nguyên byte.
 - Chuỗi sáng → tối thủ công: `python3 -m chonoi.headless --mode gather --seed 1 --ticks 10800 --inputs tests/fixtures/morning.inputs.json --inventory-out kho.json --out g.jsonl` rồi `--mode quan --inventory kho.json --inputs tests/fixtures/evening.inputs.json`
 - Windows: không có `python3` → tạo bản sao `python3.exe` cạnh `python.exe` (không đổi `headless_cmd`, máy chấm chạy Linux); PowerShell dùng `$env:PYTHONPATH = "tests;."`
 

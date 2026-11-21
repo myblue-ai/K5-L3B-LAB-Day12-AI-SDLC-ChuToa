@@ -1,0 +1,11 @@
+# Bench 2026-11-21 23:18 · Python 3.12.10 · Windows AMD64
+# 10800 tick/buổi, trung vị của 3 lần
+
+| Mode | Cách chạy | Thời gian (s) | Tick/giây | Ghi chú |
+|---|---|---|---|---|
+| gather | Session trong tiến trình | 0.086 | 125,543 | 10800 tick (buổi tự kết thúc khi hết giờ) |
+| gather | headless_cmd (gồm khởi động Python + ghi JSONL) | 0.276 | 39,163 | 1083 dòng, 1206 KiB |
+| quan | Session trong tiến trình | 0.062 | 175,124 | 10800 tick (buổi tự kết thúc khi hết giờ) |
+| quan | headless_cmd (gồm khởi động Python + ghi JSONL) | 0.184 | 58,793 | 1088 dòng, 641 KiB |
+
+Thời gian game của một buổi: 180 s. Mọi cách chạy đều nhanh hơn thời gian thực nhiều lần.

@@ -1,0 +1,6 @@
+# Phase 4 · 2026-11-21 23:18
+- tests: exit 0 · Ran 72 tests in 9.736s · OK
+- determinism gather: same bytes
+- determinism quan: same bytes
+- integration: gather exit 0, quan exit 0, kho {"items":{"bong_dien_dien":1,"ca_linh":3}}, quan money 144
+- check_team: exit 1 (  - số thành viên phải từ 4 đến 6 (đang có 1))

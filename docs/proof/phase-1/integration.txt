@@ -1,0 +1,20 @@
+# 2026-11-21 23:11
+$ python3 -m chonoi.headless --mode gather --seed 1 --ticks 10800 --inputs tests/fixtures/morning.inputs.json --inventory-out '$TMP/kho.json' --out '$TMP/g.jsonl'
+  exit 0 
+  tick    24 dive {"pos": [3.337, 0.515]}
+  tick   207 fish_caught {"fish_id": "F1", "kind": "ca_linh", "count": 3}
+  tick   279 surface {"pos": [13.463, 0.484]}
+  tick   302 gather {"node_id": "N1", "kind": "bong_dien_dien", "count": 1}
+  tick   502 gather_end {"reason": "docked", "inventory": {"items": {"bong_dien_dien": 1, "ca_linh": 3}}}
+  end: {"type": "end", "ticks": 502, "sim_tick": 502, "mode": "gather", "state": "finished", "reason": "docked", "money": 0, "earned": 0, "reputation": 3.0, "score": 300}
+kho.json = {"items":{"bong_dien_dien":1,"ca_linh":3}}
+
+$ python3 -m chonoi.headless --mode quan --seed 1 --ticks 1600 --inventory '$TMP/kho.json' --inputs tests/fixtures/evening.inputs.json --out '$TMP/q.jsonl'
+  exit 0 
+  tick   120 customer_arrived {"customer_id": "C1", "table_id": "T1", "dish_id": "lau_ca_linh_dien_dien"}
+  tick   131 cook_started {"stove_id": "B1", "dish_id": "lau_ca_linh_dien_dien", "customer_id": "C1"}
+  tick   731 dish_ready {"stove_id": "B1", "dish_id": "lau_ca_linh_dien_dien"}
+  tick   741 dish_picked {"stove_id": "B1", "dish_id": "lau_ca_linh_dien_dien"}
+  tick   882 served {"customer_id": "C1", "table_id": "T1", "dish_id": "lau_ca_linh_dien_dien"}
+  tick  1482 paid {"customer_id": "C1", "price": 120, "tip": 24, "money": 144, "reputation": 3.2}
+  end: {"type": "end", "ticks": 1600, "sim_tick": 1600, "mode": "quan", "state": "playing", "reason": "tick_limit", "money": 144, "earned": 144, "reputation": 3.2, "score": 444}

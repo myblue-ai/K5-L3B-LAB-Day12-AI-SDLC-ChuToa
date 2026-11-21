@@ -1,0 +1,6 @@
+# 2026-11-21 23:19
+$ git clone <repo> && cd <repo>   # commit 602e188
+$ PYTHONPATH=tests:. python3 -m unittest discover -s tests
+Ran 72 tests in 10.544s
+
+OK

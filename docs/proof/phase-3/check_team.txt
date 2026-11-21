@@ -1,0 +1,5 @@
+# 2026-11-21 23:16
+$ python3 tools/check_team.py
+# exit 1
+KIỂM TRA DANH SÁCH THÀNH VIÊN KHÔNG ĐẠT:
+  - số thành viên phải từ 4 đến 6 (đang có 1)

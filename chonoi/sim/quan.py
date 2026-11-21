@@ -184,7 +184,11 @@ class QuanSim:
                     s["ready_ticks"] = 0
                     events.append(("dish_ready", {"stove_id": s["id"], "dish_id": s["dish"]}))
             elif s["state"] == "ready":
-                s["ready_ticks"] += 1  # burn_s = null ở Phase 1: món chín không cháy
+                s["ready_ticks"] += 1
+                burn = self.t.get("burn_s")  # ADR-0001: null = món chín không cháy (hành vi Phase 1)
+                if burn is not None and s["ready_ticks"] >= _ticks(burn):
+                    events.append(("dish_burnt", {"stove_id": s["id"], "dish_id": s["dish"]}))
+                    s.update(state="idle", dish=None, cook_ticks_left=0, ready_ticks=0)
 
     def _interact(self, events):
         r = self.t["interact_radius"]
@@ -229,7 +233,10 @@ class QuanSim:
             if c is None:
                 return
             recipe = self.menu[c["dish_id"]]["recipe"]
-            if any(self.stock.get(k, 0) < n for k, n in recipe.items()):
+            others = self._reserved_total()  # chỉ dùng phần kho không bị khách KHÁC giữ chỗ (ADR-0001)
+            for k, n in c.get("reserved", {}).items():
+                others[k] -= n
+            if any(self.stock.get(k, 0) - others.get(k, 0) < n for k, n in recipe.items()):
                 return
             for k, n in recipe.items():
                 self.stock[k] -= n

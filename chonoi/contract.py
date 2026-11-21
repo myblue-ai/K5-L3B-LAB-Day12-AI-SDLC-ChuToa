@@ -134,8 +134,8 @@ def validate_tuning(t):
         raise BadInput("quan.tip_min_patience_ratio phải thuộc (0, 1]")
     if not (_num(q.get("tip_reputation")) and q["tip_reputation"] > 0):
         raise BadInput("quan.tip_reputation phải > 0")
-    if q.get("burn_s") is not None:
-        raise BadInput("burn_s phải là null ở Phase 1")
+    if q.get("burn_s") is not None:  # ADR-0001 (Phase 3): null = tắt món cháy; số = bật
+        _between("quan.burn_s", q["burn_s"], 1, 600)
     _validate_quan_extra(q, t)
     for dish_id, d in menu.items():
         price, cook = d.get("price"), d.get("cook_s")

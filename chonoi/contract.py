@@ -136,8 +136,41 @@ def validate_tuning(t):
         raise BadInput("quan.tip_reputation phải > 0")
     if q.get("burn_s") is not None:
         raise BadInput("burn_s phải là null ở Phase 1")
-    # TODO(nhóm): bổ sung kiểm các khóa còn lại nếu muốn chặt hơn (bếp/bàn, uy tín, ...).
+    _validate_quan_extra(q, t)
     for dish_id, d in menu.items():
         price, cook = d.get("price"), d.get("cook_s")
         if isinstance(price, bool) or not isinstance(price, int) or price <= 0 or not _num(cook) or cook <= 0:
             raise BadInput(f"menu.{dish_id}: price (nguyên) và cook_s phải > 0")
+        recipe = d.get("recipe")
+        if not isinstance(recipe, dict) or not recipe:
+            raise BadInput(f"menu.{dish_id}: recipe phải là object không rỗng")
+        for k, n in recipe.items():
+            if k not in INGREDIENTS:
+                raise BadInput(f"menu.{dish_id}: nguyên liệu lạ {k}")
+            _int_between(f"menu.{dish_id}.recipe.{k}", n, 1, 99)
+
+
+INGREDIENTS = ("ca_loc", "ca_linh", "bong_dien_dien", "bong_sung")
+
+
+def _validate_quan_extra(q, t):
+    """Kiểm thêm của nhóm ChuToa (Phase 2): bếp/bàn, mang món, uy tín, hệ số điểm."""
+    b = q["bounds"]
+    _pos_in("quan.start_pos", q.get("start_pos"), b, ("x", "z"))
+    _int_between("quan.carry_limit", q.get("carry_limit"), 1, 1)  # luật P1 chỉ cầm được 1 món
+    for name in ("stoves", "tables"):
+        arr = q.get(name)
+        if not isinstance(arr, list) or not arr:
+            raise BadInput(f"tuning.quan.{name} phải là mảng không rỗng")
+        seen = set()
+        for e in arr:
+            if not isinstance(e, dict) or not isinstance(e.get("id"), str) or not e["id"] or e["id"] in seen:
+                raise BadInput(f"tuning.quan.{name}: mỗi phần tử cần id duy nhất")
+            seen.add(e["id"])
+            _pos_in(f"quan.{name}.{e['id']}.pos", e.get("pos"), b, ("x", "z"))
+    lo, hi, init = q.get("reputation_min"), q.get("reputation_max"), q.get("reputation_initial")
+    if not (_num(lo) and _num(hi) and _num(init) and lo < hi and lo <= init <= hi):
+        raise BadInput("tuning.quan: cần reputation_min < reputation_max và reputation_initial nằm giữa")
+    score = t.get("score")
+    if not isinstance(score, dict) or not _num(score.get("reputation_multiplier")) or score["reputation_multiplier"] < 0:
+        raise BadInput("tuning.score.reputation_multiplier phải là số >= 0")

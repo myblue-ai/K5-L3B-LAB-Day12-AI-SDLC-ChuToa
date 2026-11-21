@@ -1,0 +1,12 @@
+# 2026-11-21 23:15
+$ python3 -m chonoi.headless --mode gather --seed 7 --ticks 3000 --inputs tests/fixtures/morning.inputs.json --out '$TMP/gather1.jsonl'
+  exit 0 sha256 2a652953cc28c49d5168410d2a5e21c564b1f395302f73be30c54a2fdf572dde
+$ python3 -m chonoi.headless --mode gather --seed 7 --ticks 3000 --inputs tests/fixtures/morning.inputs.json --out '$TMP/gather2.jsonl'
+  exit 0 sha256 2a652953cc28c49d5168410d2a5e21c564b1f395302f73be30c54a2fdf572dde
+=> gather: hai lần chạy GIỐNG từng byte
+
+$ python3 -m chonoi.headless --mode quan --seed 7 --ticks 3000 --scenario tests/fixtures/evening.stock.json --out '$TMP/quan1.jsonl'
+  exit 0 sha256 1f1fc447f64065fc5a7b76432d3d001b88bb421ce99f3255413da527dfae0ba5
+$ python3 -m chonoi.headless --mode quan --seed 7 --ticks 3000 --scenario tests/fixtures/evening.stock.json --out '$TMP/quan2.jsonl'
+  exit 0 sha256 1f1fc447f64065fc5a7b76432d3d001b88bb421ce99f3255413da527dfae0ba5
+=> quan: hai lần chạy GIỐNG từng byte

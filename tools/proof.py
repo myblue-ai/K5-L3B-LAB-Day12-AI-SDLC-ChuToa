@@ -24,6 +24,7 @@ def headless():
 
 
 def sh(cmd, env=None):
+    env = dict(env or os.environ, PYTHONIOENCODING="utf-8")  # đọc đúng tiếng Việt cả trên console Windows
     p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", env=env)
     return p.returncode, (p.stdout or "") + (p.stderr or "")
 

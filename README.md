@@ -54,3 +54,38 @@ Hết giờ mỗi phase thì gắn tag rồi đi tiếp; chỗ chưa xong ghi tr
 
 - Dùng AI thoải mái; **không sao chép repo của nhóm khác**; bằng chứng phải thật.
 - Nhân vật, bối cảnh là bản gốc của lab; asset ngoài chỉ dùng CC0/CC-BY/MIT hoặc tự tạo, ghi nguồn trong `CREDITS.md`. Không commit API key, token, `.env`.
+
+---
+
+# Bản nộp của nhóm ChuToa (v1.0.0)
+
+**Nhóm:** 1 người, Đào Hồng Thắng ([@myblue-ai](https://github.com/myblue-ai)); xem [`TEAM.md`](TEAM.md). Công nghệ: starter Python 3 (chỉ thư viện chuẩn), giữ nguyên Test Contract v1.0.
+
+## Chạy
+
+```bash
+PYTHONPATH=tests:. python3 -m unittest discover -s tests -v          # 72 test
+python3 -m chonoi.headless --mode gather --seed 1 --ticks 10800   --inputs tests/fixtures/morning.inputs.json --inventory-out kho.json --out g.jsonl
+python3 -m chonoi.headless --mode quan --seed 1 --ticks 1600 --inventory kho.json   --inputs tests/fixtures/evening.inputs.json --out q.jsonl
+python3 -m chonoi.live --mode gather --inventory-out kho.json        # chơi buổi sáng
+python3 -m chonoi.live --mode quan --inventory kho.json              # chơi buổi tối
+python3 tools/proof.py 4     # bằng chứng: test, tất định, chuỗi sáng → tối
+python3 tools/bench.py       # bench một buổi đầy đủ
+```
+
+Windows: không có lệnh `python3` thì tạo bản sao `python3.exe` cạnh `python.exe` (không đổi `headless_cmd`); PowerShell đặt `$env:PYTHONPATH = "tests;."`.
+
+## Đã làm theo phase
+
+| Tag | Nội dung | Bằng chứng |
+|---|---|---|
+| `phase-1` | Luật gather (oxy, ngạt, Máu, ngất, hái, bắt cá, giỏ) + quan (khách, giữ chỗ, bếp, bưng, phục vụ, tiền, boa, uy tín) + kho | [`docs/verification/phase-1.md`](docs/verification/phase-1.md) |
+| `phase-2` | Kiểm dải tuning quán, test cửa sổ quan, HUD quán | [`docs/verification/phase-2.md`](docs/verification/phase-2.md) |
+| `phase-3` | Change request: món cháy `burn_s` ([ADR-0001](docs/adr/0001-mon-chin-bi-chay-burn-s.md)) | [`docs/verification/phase-3.md`](docs/verification/phase-3.md) |
+| `phase-4` / `v1.0.0` | Bench, đóng gói, retro | [`docs/verification/phase-4.md`](docs/verification/phase-4.md) |
+
+**Giới hạn cần biết:** nội dung PRD-0 và Ticket-02/03/04 trên lab board không đọc được bằng công cụ AI của nhóm. Luật chi tiết là giả định ghi ở [`docs/clarify.md`](docs/clarify.md) (#2–#13); hidden test có thể lệch ở các điểm đó.
+
+## Sáng tạo của nhóm
+
+Chưa thêm nhân vật, món hay cơ chế ngoài đề: nhóm 1 người ưu tiên làm lõi đúng trước. Phần thêm duy nhất là HUD quán trong cửa sổ thử (đếm ngược khách đang ăn, giá + boa, nhãn "chín · E để bưng"), chỉ nằm ở `chonoi/web/index.html`, không ảnh hưởng headless.

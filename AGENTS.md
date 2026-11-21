@@ -6,10 +6,14 @@
 - Test: `PYTHONPATH=tests:. python3 -m unittest discover -s tests -v`
 - Headless: `python3 -m chonoi.headless --mode gather|quan --seed 1 --ticks 600 --out out.jsonl`
 - Chơi thử trên trình duyệt: `python3 -m chonoi.live --mode gather|quan` (mở địa chỉ in ra; WASD, E, Space, R)
+- Bằng chứng một phase: `python3 tools/proof.py <n>` → `docs/proof/phase-<n>/` (xem skill `chonoi-proof`)
+- Chuỗi sáng → tối thủ công: `python3 -m chonoi.headless --mode gather --seed 1 --ticks 10800 --inputs tests/fixtures/morning.inputs.json --inventory-out kho.json --out g.jsonl` rồi `--mode quan --inventory kho.json --inputs tests/fixtures/evening.inputs.json`
+- Windows: không có `python3` → tạo bản sao `python3.exe` cạnh `python.exe` (không đổi `headless_cmd`, máy chấm chạy Linux); PowerShell dùng `$env:PYTHONPATH = "tests;."`
 
 ## Cấu trúc & quy ước
 - (Starter Python là TÙY CHỌN; nhóm có thể dùng ngôn ngữ khác nếu giữ Test Contract.) Khung do giảng viên cấp: `chonoi/{headless,inputs,scenario,contract,rng,ids,jsonl,inventory,runner,live}.py` và `chonoi/web/`. Hạn chế sửa; nếu phải sửa thì báo cả nhóm và ghi lại lý do.
-- Luật chơi của nhóm: `chonoi/sim/gather.py`, `chonoi/sim/quan.py` (tìm `TODO(nhóm)`).
+- Luật chơi của nhóm: `chonoi/sim/gather.py`, `chonoi/sim/quan.py`; thứ tự một bước ghi ở docstring đầu mỗi file. Giả định luật: `docs/clarify.md`. Tên sự kiện/trường: `docs/contracts/README.md`.
+- Test luật của nhóm: `tests/test_gather_rules.py`, `tests/test_quan_rules.py`, `tests/test_integration_chain.py` (hộp đen qua `headless_cmd`).
 - **Số liệu chỉ đọc từ `game.contract.json` / dữ liệu**, không hard-code trong luật.
 - Mọi số ngẫu nhiên đi qua `Streams` (`chonoi/rng.py`); không dùng `random` toàn cục, không dùng đồng hồ hệ thống.
 - Sắp danh sách thực thể bằng `ids.sort_by_id`; cấp id bằng `IdAllocator`.
@@ -26,4 +30,5 @@
 - Sáng tạo thêm được khuyến khích nhưng phải tắt ở headless (xem README, mục "Tự do sáng tạo").
 
 ## Skills / hooks của nhóm
-- (Ghi tên và khi nào dùng; tối thiểu 2 skill/hook/command nhóm tự viết, đặt ở `.agents/skills/` hoặc tương đương.)
+- `chonoi-rule-slice` (`.agents/skills/chonoi-rule-slice/SKILL.md`): giao cho agent khi viết một lát luật mới; bắt buộc ghi giả định trước, test hộp đen sau.
+- `chonoi-proof` (`.agents/skills/chonoi-proof/SKILL.md`) + script `tools/proof.py`: chạy trước mỗi tag để tạo bằng chứng thật và điền verification.
